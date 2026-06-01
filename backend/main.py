@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
+import os
 
 from app.core.config import settings
 from app.core.logging import logger
@@ -56,8 +57,12 @@ async def global_exception_handler(request: Request, exc: Exception):
 async def startup_event():
     logger.info("Starting up Shadow AI Guard API...")
     # Initialize database tables
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        logger.info("Database tables created/verified successfully.")
+    except Exception as e:
+        logger.error(f"Database initialization error (non-fatal, will retry on first request): {e}")
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -72,6 +77,6 @@ if __name__ == "__main__":
     uvicorn.run(
         "main:app", 
         host="0.0.0.0", 
-        port=8000, 
+        port=int(os.environ.get("PORT", 8000)), 
         reload=True
     )

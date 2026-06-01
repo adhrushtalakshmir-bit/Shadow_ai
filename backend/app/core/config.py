@@ -20,10 +20,11 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7 # 7 days
     
-    # CORS setup
+    # CORS setup — includes production frontend by default
     CORS_ORIGINS: List[str] = [
         "http://localhost:5173",  # Vite default
         "http://localhost:3000",  # React default
+        "https://shadow-ai-guard.vercel.app",  # Production frontend
     ]
     
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")

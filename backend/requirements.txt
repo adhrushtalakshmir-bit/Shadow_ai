@@ -13,7 +13,6 @@ sqlalchemy
 aiosqlite
 opencv-python-headless
 python-jose[cryptography]
-passlib[bcrypt]
 bcrypt
 email-validator
 asyncpg
