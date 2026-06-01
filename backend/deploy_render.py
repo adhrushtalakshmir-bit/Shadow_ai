@@ -59,15 +59,35 @@ def create_web_service(internal_db_url):
             "region": "oregon",
             "runtime": "python",
             "buildCommand": "cd backend && pip install -r requirements.txt",
-            "startCommand": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT",
+            "startCommand": "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT",
             "envVars": [
                 {
                     "key": "DATABASE_URL",
                     "value": internal_db_url
                 },
                 {
-                    "key": "JWT_SECRET",
+                    "key": "SECRET_KEY",
                     "value": "super-secret-jwt-key-production-shadow-ai",
+                    "generateValue": False
+                },
+                {
+                    "key": "GEMINI_API_KEY",
+                    "value": "AIzaSyBJ7scIqtNoJ_fYcwczSh4gZh9qQNrXUwA",
+                    "generateValue": False
+                },
+                {
+                    "key": "ENVIRONMENT",
+                    "value": "production",
+                    "generateValue": False
+                },
+                {
+                    "key": "FRONTEND_URL",
+                    "value": "https://shadow-ai-guard.vercel.app",
+                    "generateValue": False
+                },
+                {
+                    "key": "CORS_ORIGINS",
+                    "value": '["https://shadow-ai-guard.vercel.app"]',
                     "generateValue": False
                 },
                 {

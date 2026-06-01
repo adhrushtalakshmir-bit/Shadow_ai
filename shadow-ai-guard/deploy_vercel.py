@@ -42,14 +42,12 @@ def create_project():
 
 def set_env_vars(project_id, backend_url):
     print("Setting Environment Variables...")
-    payload = [
-        {
-            "type": "encrypted",
-            "key": "VITE_API_URL",
-            "value": backend_url,
-            "target": ["production", "preview", "development"]
-        }
-    ]
+    payload = {
+        "type": "plain",
+        "key": "VITE_API_URL",
+        "value": backend_url,
+        "target": ["production", "preview", "development"]
+    }
     resp = requests.post(f"https://api.vercel.com/v10/projects/{project_id}/env", headers=HEADERS, json=payload)
     if resp.status_code in [200, 201]:
         print("Environment variables set.")

@@ -15,8 +15,12 @@ elif raw_db_url.startswith("postgresql://"):
 
 DB_URL = raw_db_url
 
-# For SQLite, we need check_same_thread=False. For Postgres, it's not needed (and unsupported).
-connect_args = {"check_same_thread": False} if "sqlite" in DB_URL else {}
+# Configure connection arguments (SSL required for Supabase/Postgres)
+connect_args = {}
+if "sqlite" in DB_URL:
+    connect_args["check_same_thread"] = False
+else:
+    connect_args["ssl"] = True
 
 engine = create_async_engine(
     DB_URL, 

@@ -84,3 +84,11 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     Get current user profile.
     """
     return current_user
+
+@router.post("/logout", tags=["Auth"])
+async def logout():
+    """
+    Logout endpoint. Clears user session on client side.
+    """
+    return {"message": "Logged out successfully"}
+
