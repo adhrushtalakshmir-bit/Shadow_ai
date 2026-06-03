@@ -68,7 +68,7 @@ async def startup_event():
 async def shutdown_event():
     logger.info("Shutting down Shadow AI Guard API...")
 
-@app.get("/", tags=["Root"])
+@app.api_route("/", methods=["GET", "HEAD"], tags=["Root"])
 async def root():
     return {"message": f"Welcome to {settings.PROJECT_NAME}"}
 
